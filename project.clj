@@ -7,8 +7,7 @@
 
   :node-dependencies [[source-map-support "0.2.9"]]
 
-  :plugins [[lein-cljsbuild "1.0.4"]
-            [lein-npm "0.4.0"]]
+  :plugins [[lein-cljsbuild "1.0.4"]]
 
   :source-paths ["src" "target/classes"]
 
@@ -17,6 +16,7 @@
   :cljsbuild {
     :builds [{:id "braid"
               :source-paths ["src"]
+              :notify-command ["node" "index.js"]
               :compiler {
                 :output-to "out/braid/index.js"
                 :output-dir "out/braid"
