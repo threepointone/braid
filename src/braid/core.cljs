@@ -12,6 +12,16 @@
     (.query #js {:q term :format "json"})
     (.end cb)))
 
+(defn page [c]
+  [:html
+    [:head 
+      [:meta {:charset "UTF-8"}]
+      [:title "find yourself"]      
+      [:link {:rel "stylesheet" :href "/stylesheets/style.css"}]]
+    [:body 
+     [:div {:id "container"} c]     
+     [:script {:src "/ribbon.js"}]]])
+
 
 (let [
   clog (js/require "colors")
@@ -36,12 +46,12 @@
     
     
     (.get "/" (fn [req res next]
-      (.send res (ui/toHTML (ui/page (ui/ui "" [] (fn[]())))))))
+      (.send res (ui/toHTML (page (ui/ui "" [] (fn[]())))))))
     
     (.get "/:term" (fn [req res next]
       (let [term (.. req -params -term)]
         (ui/search term
-          (fn [err response] (.send res (ui/toHTML (ui/page (ui/ui term response (fn[]()))))))))))
+          (fn [err response] (.send res (ui/toHTML (page (ui/ui term response (fn[]()))))))))))
 
     ;; an api endpoint to use 
     (.get "/api/:term" (fn [req res next] 

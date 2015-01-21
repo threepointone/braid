@@ -1,6 +1,5 @@
 (ns ribbon.core
-  (:require 
-            [ui.core :as ui]))
+  (:require [ui.core :as ui]))
 
 ;; [clojure.browser.repl :as repl]
 ;; (repl/connect "http://localhost:9000/repl")

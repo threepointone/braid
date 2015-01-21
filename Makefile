@@ -7,5 +7,5 @@ dev:
 watch:
 	watchify out/ribbon/index.js -o public/ribbon.js -v
 
-PHONY: dev watch
+PHONY: setup dev watch
 

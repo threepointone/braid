@@ -10,16 +10,6 @@
         (cb err) 
         (cb nil (js->clj (.-body res))))))))
 
-(defn page [c]
-  [:html
-    [:head 
-      [:meta {:charset "UTF-8"}]
-      [:title "find yourself"]      
-      [:link {:rel "stylesheet" :href "/stylesheets/style.css"}]]
-    [:body 
-     [:div {:id "container"} c]     
-     [:script {:src "/ribbon.js"}]]])
-
 (defn ui [term data on-change]
   [:div {:class "container"} 
    [:div {:class "search"}
