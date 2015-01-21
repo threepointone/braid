@@ -3,7 +3,8 @@
   :url "http://example.com/FIXME"
 
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [org.clojure/clojurescript "0.0-2695"]]
+                 [org.clojure/clojurescript "0.0-2695"]
+                 [reagent "0.5.0-alpha"]]
 
   :node-dependencies [[source-map-support "0.2.9"]]
 
@@ -15,24 +16,24 @@
 
   :cljsbuild {
     :builds [{:id "braid"
-              :source-paths ["src"]
-              :notify-command ["node" "index.js"]
+              :source-paths ["src/braid" "src/ui"]
+              ; :notify-command ["node" "index.js"]
               :compiler {
                 :output-to "out/braid/index.js"
                 :output-dir "out/braid"
                 :optimizations :none
                 :target :nodejs
                 :cache-analysis true                
-                :source-map true}}
+                :source-map "out/braid/index.map"}}
              
              {:id "ribbon"
-              :source-paths ["src"]
+              :source-paths ["src/ribbon" "src/ui"]
               :compiler {
                 :output-to "out/ribbon/index.js"
                 :output-dir "out/ribbon"
-                :optimizations :none
+                :optimizations :simple
                 :cache-analysis true
-                :source-map true}}
+                :source-map "out/ribbon/index.map"}}
              
              ; {:id "release"
              ;  :source-paths ["src"]
