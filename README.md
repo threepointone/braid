@@ -18,7 +18,6 @@ in 3 terminals
 cljsbuild auto
 make watch
 make dev
-
 ```
 
 visit `http://localhost:3693`
