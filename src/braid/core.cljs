@@ -4,18 +4,25 @@
 
 (n/enable-util-print!)
 (defn -main [] nil)
-(set! *main-cli-fn* -main) 
+(set! *main-cli-fn* -main)  
 
+(defn search[term cb] 
+  (-> (js/require "superagent") 
+    (.get "http://nominatim.openstreetmap.org/search")
+    (.query #js {:q term :format "json"})
+    (.end cb)))
 
 
 (let [
   clog (js/require "colors")
+  dirname (js* "__dirname")
+  path (js/require "path")
   debug ((js/require "debug") "braid")
   port (or (.. js/process -env -BRAIDPORT) 3693)
   express (js/require "express")
   app (express) 
-  body-parser (js/require "body-parser")]
-
+  body-parser (js/require "body-parser")] 
+  
   (doto app 
     (.set "views" "./views")
     (.set "view engine" "jade")
@@ -24,17 +31,21 @@
     (.use (.json body-parser))
     (.use (.urlencoded body-parser #js {:extended false}))
     (.use ((js/require "cookie-parser")))
-    (.use (js/require "less-middleware" "./public"))
     (.use (.static express "./public"))
     (.use (.static express "./out"))
     
     
     (.get "/" (fn [req res next]
-      (.send res (ui/toHTML (ui/page (ui/ui []))))))
+      (.send res (ui/toHTML (ui/page (ui/ui "" [] (fn[]())))))))
+    
+    (.get "/:term" (fn [req res next]
+      (let [term (.. req -params -term)]
+        (ui/search term
+          (fn [err response] (.send res (ui/toHTML (ui/page (ui/ui term response (fn[]()))))))))))
 
     ;; an api endpoint to use 
-    (.get "/:term" (fn [req res next] 
-      (ui/search (.. req -params -term) (fn [err response] 
+    (.get "/api/:term" (fn [req res next] 
+      (search (.. req -params -term) (fn [err response] 
         (.send res (.-body response))))))
     
     
@@ -57,3 +68,4 @@
     (.set "port" port)
     (.listen port #(debug (str "express server listening on port " port)))))
 
+ 

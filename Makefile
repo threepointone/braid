@@ -1,3 +1,6 @@
+setup:
+	npm install
+
 dev: 
 	DEBUG=braid node index.js
 

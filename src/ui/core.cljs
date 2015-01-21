@@ -4,9 +4,11 @@
 ;; an endpoint to search for city data
 (defn search[term cb] 
   (-> (js/require "superagent") 
-    (.get "http://nominatim.openstreetmap.org/search")
-    (.query #js {:q term :format "json"})
-    (.end cb)))
+    (.get (str "http://localhost:3693/api/" (js/encodeURIComponent term)))
+    (.end (fn [err res] 
+      (if err 
+        (cb err) 
+        (cb nil (js->clj (.-body res))))))))
 
 (defn page [c]
   [:html
@@ -18,11 +20,11 @@
      [:div {:id "container"} c]     
      [:script {:src "/ribbon.js"}]]])
 
-(defn ui [data on-change]
+(defn ui [term data on-change]
   [:div {:class "container"} 
    [:div {:class "search"}
-    [:input {:on-change on-change}]]
-   [:div {:class "results"} (.stringify js/JSON data)]])
+    [:input {:on-change on-change :default-value term}]]
+   [:pre {:class "results"} (.stringify js/JSON (clj->js data) nil "  ")]])
 
 (defn toHTML [c]
   (str "<!doctype html>" (reagent/render-to-static-markup c))) 
@@ -32,4 +34,4 @@
 
 
 (defn toDOM [c el]
-  (reagent/render-component c el))
+  (reagent/render-component c el))  
