@@ -4,14 +4,9 @@
 ;; [clojure.browser.repl :as repl]
 ;; (repl/connect "http://localhost:9000/repl")
 
-(defn foo [a b]
-  (+ a b))
-
 (enable-console-print!)
 
 (set! (.-React js/window) (js/require "react"))
-
-
 
 (defn render[input data]
   (ui/toDOM 

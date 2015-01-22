@@ -25,7 +25,6 @@
 
 (let [
   clog (js/require "colors")
-  dirname (js* "__dirname")
   path (js/require "path")
   debug ((js/require "debug") "braid")
   port (or (.. js/process -env -BRAIDPORT) 3693)
