@@ -4,8 +4,8 @@ setup:
 dev: 
 	DEBUG=braid node index.js
 
-watch:
-	watchify out/ribbon/index.js -o public/ribbon.js -v
+require:
+	./scripts/require out/ribbon/index.js -o ./public/require.js
 
-PHONY: setup dev watch
+PHONY: setup dev require
 

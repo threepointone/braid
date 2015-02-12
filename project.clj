@@ -3,7 +3,7 @@
   :url "http://example.com/FIXME"
 
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [org.clojure/clojurescript "0.0-2695"]
+                 [org.clojure/clojurescript "0.0-2843"]
                  [reagent "0.5.0-alpha"]]
 
   :node-dependencies [[source-map-support "0.2.9"]]
@@ -31,7 +31,7 @@
               :compiler {
                 :output-to "out/ribbon/index.js"
                 :output-dir "out/ribbon"
-                :optimizations :simple
+                :optimizations :advanced
                 :cache-analysis true
                 :source-map "out/ribbon/index.map"}}
              

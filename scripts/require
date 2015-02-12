@@ -1,0 +1,53 @@
+#!/usr/local/bin/node
+
+var falafel = require('falafel'),
+	fs = require('fs'),
+	browserify = require('browserify'),
+	path = require('path');
+
+var argv = require('minimist')(process.argv.slice(2));
+
+if (argv._.length !== 1) {
+	throw new Error('need single entry file');
+}
+
+var gDeps = [];
+
+falafel(fs.readFileSync(argv._[0], 'utf8'), function(node) {
+	if (node.type === 'CallExpression' && node.callee &&
+		node.callee.object && node.callee.object.name === 'goog' &&
+		node.callee.property && node.callee.property.name === 'addDependency') {
+		var f = node.arguments[0].value;
+		gDeps.push(path.join(path.dirname(argv._[0]) + '/goog', (f.charAt(0) !== '.') ? ('./' + f) : f))
+	}
+})
+
+var deps = gDeps.concat([argv._[0]]).reduce(function(arr, f) {
+	falafel(fs.readFileSync(f, 'utf8'), function(node) {
+
+		if ((node.type === 'Identifier') &&
+			(node.name === 'require') &&
+			(node.parent.type === 'CallExpression')) {
+			var dep = node.parent.arguments[0].value;
+			(arr.indexOf(dep) < 0) && arr.push(dep);
+		}
+	});
+	return arr;
+}, []);
+
+
+// you could replace this with webpack, or whatever 
+
+var b = browserify({
+	debug: false,
+	insertGlobals: true
+}).require(deps).bundle(function(err, buf) {
+	if (err) {
+		throw err;
+	}
+
+	if (argv.o) {
+		return fs.writeFileSync(argv.o, buf);
+	}
+	console.log(buf.toString());
+});

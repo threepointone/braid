@@ -19,8 +19,17 @@
       [:title "find yourself"]      
       [:link {:rel "stylesheet" :href "/stylesheets/style.css"}]]
     [:body 
-     [:div {:id "container"} c]     
-     [:script {:src "/ribbon.js"}]]])
+      [:div {:id "container"} c]
+      [:script {:src "/require.js"}]
+      (if (= (.. js/process -env -NODE_ENV) "production") 
+        [:script {:src "/ribbon/index.js"}] 
+        [ [:script {:src "/ribbon/goog/base.js"}]
+          [:script {:src "/ribbon/index.js"}] 
+          [:script {:dangerouslySetInnerHTML #js {:__html "window.React= require('react');goog.require('ribbon.core')"}}] ])] ])
+
+
+(defn static-path [p] 
+  (.join (js/require "path") (.cwd js/process) p))
 
 
 (let [
@@ -40,8 +49,8 @@
     (.use (.json body-parser))
     (.use (.urlencoded body-parser #js {:extended false}))
     (.use ((js/require "cookie-parser")))
-    (.use (.static express "./public"))
-    (.use (.static express "./out"))
+    (.use (.static express (static-path "public")))
+    (.use (.static express (static-path "out")))
     
     
     (.get "/" (fn [req res next]

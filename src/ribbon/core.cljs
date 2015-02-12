@@ -6,7 +6,7 @@
 
 (enable-console-print!)
 
-(set! (.-React js/window) (js/require "react"))
+(aset js/window "React" (js/require "react"))
 
 (defn render[input data]
   (ui/toDOM 
@@ -21,7 +21,7 @@
 
 (if start 
   (ui/search start (fn [err res] (render start res)))
-  (render start []))
+  (render start []))   
 
 
 
