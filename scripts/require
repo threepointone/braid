@@ -11,6 +11,8 @@ if (argv._.length !== 1) {
 	throw new Error('need single entry file');
 }
 
+// get all `goog.addDependency` calls from the entry file
+
 var gDeps = [];
 
 falafel(fs.readFileSync(argv._[0], 'utf8'), function(node) {
@@ -22,9 +24,10 @@ falafel(fs.readFileSync(argv._[0], 'utf8'), function(node) {
 	}
 })
 
+// now, get all `require()` calls; these are our npm dependencies
+
 var deps = gDeps.concat([argv._[0]]).reduce(function(arr, f) {
 	falafel(fs.readFileSync(f, 'utf8'), function(node) {
-
 		if ((node.type === 'Identifier') &&
 			(node.name === 'require') &&
 			(node.parent.type === 'CallExpression')) {
@@ -36,6 +39,7 @@ var deps = gDeps.concat([argv._[0]]).reduce(function(arr, f) {
 }, []);
 
 
+// make a bundle, exposing the parsed dependencies 
 // you could replace this with webpack, or whatever 
 
 var b = browserify({

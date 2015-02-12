@@ -33,6 +33,7 @@
                 :output-dir "out/ribbon"
                 :optimizations :advanced
                 :cache-analysis true
+                :pretty-print false
                 :source-map "out/ribbon/index.map"}}
              
              ; {:id "release"

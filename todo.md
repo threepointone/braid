@@ -2,7 +2,7 @@
 - x stylesheet
 - x run code on browser 
 - x make isomorphic ui
-- x :advanced optimizations 
+- x :none :simple :advanced optimizations 
 
 - react-router
 - hydrate data 
