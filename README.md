@@ -3,7 +3,7 @@
 
 ### browserify + clojurescript
 
-to run the example, run `node index.js`, and visit `http://localhost:3693/paris`. input more cities to search instantly.
+to run the example, run 'make dev`, and visit `http://localhost:3693/paris`. input more cities to search instantly.
 
 
 dev usage - 
