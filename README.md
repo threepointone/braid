@@ -11,7 +11,7 @@ dev usage -
 - create package.json with `npm init`
 - `npm install` required modules 
 - use `js/require` to require said modules
-- `./scripts/require` - this parses out npm dependencies, and creates a browserify bundle
+- `./scripts/require <entry file>` - this parses out npm dependencies, and creates a browserify bundle
 - uglify for compressing bundle
 - include `bundle.js` before compiled clojurescript file(s)
 - done! no externs!
