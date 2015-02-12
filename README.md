@@ -14,7 +14,7 @@ dev usage -
 - `make require` - this parses out npm dependencies, and creates a compressed browserify bundle
 - include `bundle.js` before compiled clojurescript file(s)
 - done! no externs!
-- works in all compilations modes
+- works in all compilation modes
 - bonus: "isomorphic"; here, ui.core is shared between browser and server; containing reagent components and a superagent http client
 
 
