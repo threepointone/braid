@@ -23,7 +23,7 @@
       [:script {:src "/require.js"}]
       (if (= (.. js/process -env -NODE_ENV) "production") 
         [:script {:src "/ribbon/index.js"}] 
-        [ [:script {:src "/ribbon/goog/base.js"}]
+        [:div [:script {:src "/ribbon/goog/base.js"}]
           [:script {:src "/ribbon/index.js"}] 
           [:script {:dangerouslySetInnerHTML #js {:__html "goog.require('ribbon.core')"}}] ])] ])
 

@@ -1,9 +1,10 @@
 (ns ui.core
   (:require [reagent.core :as reagent :refer [atom]]))
 
+(def superagent (js/require "superagent"))
 ;; an endpoint to search for city data
 (defn search[term cb] 
-  (-> (js/require "superagent") 
+  (-> superagent 
     (.get (str "http://localhost:3693/api/" (js/encodeURIComponent term)))
     (.end (fn [err res] 
       (if err 
