@@ -21,6 +21,3 @@ dev usage -
 todo
 
 - react-router
-- hydrate data 
-- live maps 
-- find out what the heck a repl is 
