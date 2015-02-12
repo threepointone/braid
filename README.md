@@ -11,8 +11,7 @@ dev usage -
 - create package.json with `npm init`
 - `npm install` required modules 
 - use `js/require` to require said modules
-- `./scripts/require <entry file>` - this parses out npm dependencies, and creates a browserify bundle
-- uglify for compressing bundle
+- `make require` - this parses out npm dependencies, and creates a compressed browserify bundle
 - include `bundle.js` before compiled clojurescript file(s)
 - done! no externs!
 - bonus: "isomorphic"; here, ui.core is shared between browser and server; containing reagent components and a superagent http client
