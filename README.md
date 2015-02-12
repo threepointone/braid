@@ -1,35 +1,22 @@
 ### braid
 
-some notes - 
-- buzzwords - clojurescript express superagent browserify react reagent
-- did this to learn about clojurescript, and get a familiar stack on node 
-- needed this [patch](https://gist.github.com/threepointone/67c73c9089838004afac) for clojurescript to work on io.js
-- the isomorphic dream is alive! pass either :simple or :advanced to the compiler, and send the resulting blob through browserify. that's it!
-- here, ui.core is shared between browser and server; containing reagent components and a superagent http client
-- this way, you get BOTH - closure compiler's advanced stuff, and uglify or whatever for the rest
-- further, you bypass the whole externs mess. sweet!
 
-add to .bash_profile 
-```
-export LEIN_FAST_TRAMPOLINE=y
-alias cljsbuild="lein trampoline cljsbuild $@"
-```
+## browserify + clojurescript
 
-run once 
-```
-npm install watchify browserify -g
-make install
-./script/compile_cljsc
-```
+to run the example, run `node index.js`, and visit `http://localhost:3693/paris`. input more cities to search instantly.
 
-in 3 terminals 
-```
-cljsbuild auto
-make watch
-make dev
-```
 
-visit `http://localhost:3693`
+dev usage - 
+
+- create package.json with `npm init`
+- `npm install` required modules 
+- use `js/require` to require said modules
+- `./scripts/require <entry file> -o bundle.js`
+- include `bundle.js` before compiled clojurescript file(s)
+- done! no externs!
+- bonus: "isomorphic"; here, ui.core is shared between browser and server; containing reagent components and a superagent http client
+
+
 
 todo
 
