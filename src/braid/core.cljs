@@ -25,7 +25,7 @@
         [:script {:src "/ribbon/index.js"}] 
         [ [:script {:src "/ribbon/goog/base.js"}]
           [:script {:src "/ribbon/index.js"}] 
-          [:script {:dangerouslySetInnerHTML #js {:__html "window.React= require('react');goog.require('ribbon.core')"}}] ])] ])
+          [:script {:dangerouslySetInnerHTML #js {:__html "goog.require('ribbon.core')"}}] ])] ])
 
 
 (defn static-path [p] 
@@ -48,6 +48,7 @@
     (.use ((js/require "morgan") "dev"))
     (.use (.json body-parser))
     (.use (.urlencoded body-parser #js {:extended false}))
+    (.use ((js/require "compression")))
     (.use ((js/require "cookie-parser")))
     (.use (.static express (static-path "public")))
     (.use (.static express (static-path "out")))

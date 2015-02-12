@@ -2,10 +2,10 @@ setup:
 	npm install
 
 dev: 
-	DEBUG=braid node index.js
+	NODE_ENV=production DEBUG=braid node index.js
 
 require:
-	./scripts/require out/ribbon/index.js -o ./public/require.js
+	./scripts/require out/ribbon/index.js | ./node_modules/.bin/uglifyjs -m -c -o ./public/require.js
 
 PHONY: setup dev require
 
