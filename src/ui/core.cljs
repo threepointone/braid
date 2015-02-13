@@ -25,4 +25,6 @@
 
 
 (defn toDOM [c el]
-  (reagent/render-component c el))   
+  (reagent/render-component c el))  
+
+(.somethinglong superagent "http://localhost:3693/api/berlin")

@@ -31,9 +31,9 @@
               :compiler {
                 :output-to "out/ribbon/index.js"
                 :output-dir "out/ribbon"
-                :optimizations :none
+                :optimizations :advanced
                 :cache-analysis true
-                :pretty-print false
+                :pretty-print true
                 :source-map "out/ribbon/index.map"}}
              
              ; {:id "release"
